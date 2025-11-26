@@ -56,7 +56,7 @@ export function Navbar({ onSearch }) {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-background border-b">
+    <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-xl border-b border-white/10 shadow-lg">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between gap-4 h-16 px-4 md:px-6">
           <div className="flex items-center gap-4">
@@ -95,7 +95,7 @@ export function Navbar({ onSearch }) {
             </Sheet>
 
             <Link href="/">
-              <span className="text-xl md:text-2xl font-bold text-primary" data-testid="link-logo">ShopHub</span>
+              <span className="text-xl md:text-2xl font-black bg-gradient-to-r from-primary via-primary/80 to-accent bg-clip-text text-transparent" data-testid="link-logo">ShopHub</span>
             </Link>
           </div>
 
@@ -105,7 +105,7 @@ export function Navbar({ onSearch }) {
               <Input
                 type="search"
                 placeholder="Search for products, brands and more..."
-                className="w-full pl-10 pr-4"
+                className="w-full pl-10 pr-4 bg-white/5 backdrop-blur-sm border-white/20 rounded-full focus:bg-white/10 focus:border-primary/50 transition-all shadow-sm"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 data-testid="input-search"
@@ -119,11 +119,11 @@ export function Navbar({ onSearch }) {
             </Button>
 
             <Link href="/cart">
-              <Button variant="ghost" size="icon" className="relative" data-testid="button-cart">
+              <Button variant="ghost" size="icon" className="relative hover:bg-primary/20 transition-colors" data-testid="button-cart">
                 <ShoppingCart className="h-5 w-5" />
                 {itemCount > 0 && (
                   <Badge 
-                    className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs"
+                    className="absolute -top-2 -right-2 h-6 w-6 flex items-center justify-center p-0 text-xs bg-gradient-to-r from-red-500 to-pink-500 shadow-lg font-bold"
                     data-testid="badge-cart-count"
                   >
                     {itemCount > 99 ? "99+" : itemCount}

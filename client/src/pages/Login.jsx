@@ -42,12 +42,15 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted px-4">
-      <Card className="w-full max-w-md" data-testid="card-login">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl" data-testid="text-login-title">Sign In</CardTitle>
-          <p className="text-sm text-muted-foreground mt-2">
-            Enter your email and password to continue
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 px-4 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-600/20 rounded-full blur-3xl" />
+      
+      <Card className="w-full max-w-md relative z-10 border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl" data-testid="card-login">
+        <CardHeader className="text-center bg-gradient-to-r from-primary/20 to-accent/20">
+          <CardTitle className="text-3xl font-black bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent" data-testid="text-login-title">Welcome Back</CardTitle>
+          <p className="text-sm text-white/70 mt-2 font-medium">
+            Sign in to your ShopHub account
           </p>
         </CardHeader>
         <CardContent>
@@ -92,7 +95,7 @@ export default function Login() {
               </div>
             </div>
 
-            <Button type="submit" className="w-full" disabled={loading} data-testid="button-login">
+            <Button type="submit" className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-lg font-bold text-white" disabled={loading} data-testid="button-login">
               {loading ? "Signing in..." : "Sign In"}
             </Button>
           </form>

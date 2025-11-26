@@ -22,28 +22,32 @@ export default function Landing() {
   ];
 
   return (
-    <div className="min-h-screen">
-      <section className="relative bg-gradient-to-br from-primary/20 via-primary/10 to-background py-16 md:py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-grid-pattern opacity-5" />
-        <div className="max-w-7xl mx-auto px-4 md:px-6 relative">
+    <div className="min-h-screen bg-gradient-to-b from-background via-muted/30 to-background">
+      <section className="relative bg-gradient-to-br from-primary via-primary/50 to-background py-20 md:py-32 overflow-hidden">
+        <div className="absolute inset-0 opacity-50">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
+        </div>
+        <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-sm font-semibold mb-8 shadow-lg">
+                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
                 Welcome to ShopHub
               </div>
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight" data-testid="text-landing-title">
+              <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight bg-gradient-to-r from-white via-white to-white/80 bg-clip-text text-transparent" data-testid="text-landing-title">
                 Your Ultimate<br />
-                <span className="text-primary">Shopping Destination</span>
+                <span className="bg-gradient-to-r from-yellow-300 to-orange-400 bg-clip-text text-transparent">Shopping Destination</span>
               </h1>
-              <p className="text-lg text-muted-foreground mb-8 max-w-lg" data-testid="text-landing-subtitle">
+              <p className="text-lg text-white/80 mb-10 max-w-lg font-medium" data-testid="text-landing-subtitle">
                 Discover thousands of products across 15 categories. From electronics to fashion, 
-                find everything you need with the best deals and fast delivery.
+                find everything you need with the best deals and lightning-fast delivery.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Button size="lg" asChild data-testid="button-landing-signup">
-                  <Link href="/signup">Get Started</Link>
+                <Button size="lg" className="bg-gradient-to-r from-yellow-400 to-orange-400 text-black hover:from-yellow-300 hover:to-orange-300 shadow-xl hover:shadow-2xl font-bold transform hover:scale-105 transition-all" asChild data-testid="button-landing-signup">
+                  <Link href="/signup">Get Started Now</Link>
                 </Button>
-                <Button size="lg" variant="outline" asChild data-testid="button-landing-browse">
+                <Button size="lg" variant="outline" className="backdrop-blur-md bg-white/10 border-white/30 text-white hover:bg-white/20 shadow-lg" asChild data-testid="button-landing-browse">
                   <Link href="#categories">Browse Products</Link>
                 </Button>
               </div>
@@ -64,17 +68,17 @@ export default function Landing() {
             <div className="hidden md:grid grid-cols-2 gap-4">
               {categories.slice(0, 4).map((cat) => (
                 <Link key={cat.id} href={`/category/${cat.slug}`}>
-                  <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden group" data-testid={`card-landing-${cat.slug}`}>
+                  <Card className="hover:shadow-2xl transition-all duration-500 cursor-pointer overflow-hidden group border-0 bg-white/10 backdrop-blur-md hover:bg-white/20" data-testid={`card-landing-${cat.slug}`}>
                     <div className="aspect-square relative">
                       <img 
                         src={cat.imageUrl} 
                         alt={cat.name}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        className="w-full h-full object-cover group-hover:scale-125 transition-transform duration-700 brightness-75 group-hover:brightness-100"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent group-hover:from-black/60 transition-all" />
                       <div className="absolute bottom-4 left-4 right-4">
-                        <p className="text-white font-semibold text-lg">{cat.name}</p>
-                        <p className="text-white/70 text-sm">Shop Now</p>
+                        <p className="text-white font-bold text-lg drop-shadow-lg">{cat.name}</p>
+                        <p className="text-white/90 text-sm font-semibold">Explore Now →</p>
                       </div>
                     </div>
                   </Card>

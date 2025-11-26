@@ -57,14 +57,17 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted px-4">
-      <Card className="w-full max-w-md" data-testid="card-signup">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl" data-testid="text-signup-title">
-            Create Account
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-950 via-blue-900 to-slate-950 px-4 relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-green-600/20 rounded-full blur-3xl" />
+      
+      <Card className="w-full max-w-md relative z-10 border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl" data-testid="card-signup">
+        <CardHeader className="text-center bg-gradient-to-r from-accent/20 to-primary/20">
+          <CardTitle className="text-3xl font-black bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent" data-testid="text-signup-title">
+            Join ShopHub
           </CardTitle>
-          <p className="text-sm text-muted-foreground mt-2">
-            Join ShopHub and start shopping today
+          <p className="text-sm text-white/70 mt-2 font-medium">
+            Create your account and start shopping today
           </p>
         </CardHeader>
         <CardContent>
@@ -148,7 +151,7 @@ export default function Signup() {
               </div>
             </div>
 
-            <Button type="submit" className="w-full" disabled={loading} data-testid="button-signup">
+            <Button type="submit" className="w-full bg-gradient-to-r from-accent to-primary hover:from-accent/90 hover:to-primary/90 shadow-lg font-bold text-white" disabled={loading} data-testid="button-signup">
               {loading ? "Creating Account..." : "Create Account"}
             </Button>
           </form>
