@@ -23,6 +23,9 @@ import Orders from "@/pages/Orders";
 import Wishlist from "@/pages/Wishlist";
 import Admin from "@/pages/Admin";
 import Seller from "@/pages/Seller";
+import Support from "@/pages/Support";
+import Contact from "@/pages/Contact";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -44,6 +47,9 @@ function Router() {
       <Route path="/wishlist" component={Wishlist} />
       <Route path="/admin" component={Admin} />
       <Route path="/seller" component={Seller} />
+      <Route path="/support" component={Support} />
+      <Route path="/contact" component={Contact} />
+      <Route path="/privacy" component={PrivacyPolicy} />
       <Route component={NotFound} />
     </Switch>
   );
