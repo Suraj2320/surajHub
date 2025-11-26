@@ -137,45 +137,56 @@ export function Navbar({ onSearch }) {
             </div>
           </form>
 
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setLocation("/search")} data-testid="button-search-mobile">
+          <div className="flex items-center gap-3">
+            <Button variant="ghost" size="icon" className="md:hidden hover:bg-primary/20 transition-colors" onClick={() => setLocation("/search")} data-testid="button-search-mobile">
               <Search className="h-5 w-5" />
             </Button>
 
             <Link href="/cart">
-              <Button variant="ghost" size="icon" className="relative hover:bg-primary/20 transition-colors" data-testid="button-cart">
-                <ShoppingCart className="h-5 w-5" />
+              <div className="relative group cursor-pointer">
+                <Button className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 shadow-lg hover:shadow-xl transition-all" size="default" data-testid="button-cart">
+                  <ShoppingCart className="h-5 w-5 mr-2" />
+                  <span className="hidden sm:inline font-semibold">Cart</span>
+                  {itemCount > 0 && (
+                    <Badge 
+                      className="absolute -top-3 -right-3 h-7 w-7 flex items-center justify-center p-0 text-xs bg-gradient-to-r from-red-600 to-pink-600 shadow-xl font-bold text-white border-2 border-background rounded-full"
+                      data-testid="badge-cart-count"
+                    >
+                      {itemCount > 99 ? "99+" : itemCount}
+                    </Badge>
+                  )}
+                </Button>
                 {itemCount > 0 && (
-                  <Badge 
-                    className="absolute -top-2 -right-2 h-6 w-6 flex items-center justify-center p-0 text-xs bg-gradient-to-r from-red-500 to-pink-500 shadow-lg font-bold"
-                    data-testid="badge-cart-count"
-                  >
-                    {itemCount > 99 ? "99+" : itemCount}
-                  </Badge>
+                  <div className="absolute top-full right-0 mt-2 bg-gradient-to-r from-orange-500/10 to-red-500/10 backdrop-blur-sm border border-orange-500/30 rounded-lg p-2 text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-50">
+                    {itemCount} item{itemCount !== 1 ? 's' : ''} in cart
+                  </div>
                 )}
-              </Button>
+              </div>
             </Link>
 
             {isLoading ? (
-              <div className="h-9 w-9 rounded-full bg-muted animate-pulse" />
+              <div className="h-10 px-4 rounded-lg bg-gradient-to-r from-muted to-muted/50 animate-pulse" />
             ) : isAuthenticated && user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="flex items-center gap-2 px-2" data-testid="button-user-menu">
-                    <Avatar className="h-8 w-8">
+                  <Button className="flex items-center gap-2 px-3 bg-gradient-to-r from-primary/20 to-accent/20 hover:from-primary/30 hover:to-accent/30 border border-primary/30 shadow-md hover:shadow-lg transition-all" data-testid="button-user-menu">
+                    <Avatar className="h-8 w-8 border-2 border-primary">
                       <AvatarImage src={user.profileImageUrl || undefined} alt={user.firstName || "User"} className="object-cover" />
-                      <AvatarFallback>{getUserInitials()}</AvatarFallback>
+                      <AvatarFallback className="bg-gradient-to-br from-primary to-accent text-white font-bold">{getUserInitials()}</AvatarFallback>
                     </Avatar>
-                    <span className="hidden lg:inline text-sm font-medium">
-                      {user.firstName || "Account"}
-                    </span>
-                    <ChevronDown className="h-4 w-4 hidden lg:inline" />
+                    <div className="hidden lg:flex flex-col items-start">
+                      <span className="text-xs font-bold text-primary">Welcome</span>
+                      <span className="text-sm font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                        {user.firstName || "User"}
+                      </span>
+                    </div>
+                    <ChevronDown className="h-4 w-4 hidden lg:inline ml-1" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  <div className="px-2 py-1.5">
-                    <p className="text-sm font-medium">{user.firstName} {user.lastName}</p>
-                    <p className="text-xs text-muted-foreground">{user.email}</p>
+                <DropdownMenuContent align="end" className="w-64 bg-gradient-to-br from-background to-muted/50 border-white/10 backdrop-blur-sm">
+                  <div className="px-4 py-3 bg-gradient-to-r from-primary/20 to-accent/20 border-b border-white/10">
+                    <p className="text-sm font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">{user.firstName} {user.lastName}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{user.email}</p>
                   </div>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
@@ -220,8 +231,8 @@ export function Navbar({ onSearch }) {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button asChild data-testid="button-login">
-                <Link href="/login">Login</Link>
+              <Button className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-lg font-bold text-white" asChild data-testid="button-login">
+                <Link href="/login">Sign In</Link>
               </Button>
             )}
           </div>

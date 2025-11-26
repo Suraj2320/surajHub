@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: surajhub
+  labels:
+    app: surajhub
+    environment: production

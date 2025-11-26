@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: surajhub-config
+  namespace: surajhub
+data:
+  stripe-public-key: "pk_live_YOUR_STRIPE_PUBLIC_KEY"
+  node-env: "production"
+  log-level: "info"
