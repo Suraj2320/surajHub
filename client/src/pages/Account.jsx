@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 
 export default function Account() {
   const [, setLocation] = useLocation();
-  const { user, isAuthenticated, isLoading } = useAuth();
+  const { user, isAuthenticated, isLoading, logout } = useAuth();
   const { toast } = useToast();
 
   useEffect(() => {
@@ -20,9 +20,9 @@ export default function Account() {
         description: "You need to login to view your account",
         variant: "destructive"
       });
-      window.location.href = "/api/login";
+      setLocation("/login");
     }
-  }, [isAuthenticated, isLoading, toast]);
+  }, [isAuthenticated, isLoading, toast, setLocation]);
 
   if (isLoading) {
     return (
@@ -81,14 +81,18 @@ export default function Account() {
 
           <Card className="mt-4">
             <CardContent className="p-4">
-              <a 
-                href="/api/logout" 
-                className="flex items-center gap-3 p-2 rounded-md hover:bg-destructive/10 text-destructive transition-colors"
-                data-testid="link-logout"
+              <button 
+                onClick={async () => {
+                  await logout();
+                  toast({ title: "Logged out", description: "You have been logged out successfully" });
+                  setLocation("/");
+                }}
+                className="flex items-center gap-3 p-2 rounded-md hover:bg-destructive/10 text-destructive transition-colors w-full"
+                data-testid="button-logout"
               >
                 <LogOut className="h-5 w-5" />
                 <span>Logout</span>
-              </a>
+              </button>
             </CardContent>
           </Card>
         </div>

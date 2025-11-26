@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { ChevronRight, Package, ShoppingBag } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,6 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 
 export default function Orders() {
+  const [, setLocation] = useLocation();
   const { user, isAuthenticated, isLoading } = useAuth();
   const { toast } = useToast();
 
@@ -17,9 +18,9 @@ export default function Orders() {
         description: "You need to login to view your orders",
         variant: "destructive"
       });
-      window.location.href = "/api/login";
+      setLocation("/login");
     }
-  }, [isAuthenticated, isLoading, toast]);
+  }, [isAuthenticated, isLoading, toast, setLocation]);
 
   if (isLoading) {
     return (

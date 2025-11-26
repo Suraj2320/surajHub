@@ -21,12 +21,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/context/CartContext";
 import { categories } from "@/data/products";
+import { useToast } from "@/hooks/use-toast";
 
 export function Navbar({ onSearch }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [, setLocation] = useLocation();
-  const { user, isAuthenticated, isLoading } = useAuth();
+  const { user, isAuthenticated, isLoading, logout } = useAuth();
   const { getItemCount } = useCart();
+  const { toast } = useToast();
   const itemCount = getItemCount();
 
   const handleSearch = (e) => {
@@ -178,16 +180,24 @@ export function Navbar({ onSearch }) {
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem asChild>
-                    <a href="/api/logout" className="flex items-center gap-2 w-full cursor-pointer text-destructive" data-testid="link-logout">
+                    <button 
+                      onClick={async () => {
+                        await logout();
+                        toast({ title: "Logged out", description: "You have been logged out successfully" });
+                        setLocation("/");
+                      }}
+                      className="flex items-center gap-2 w-full cursor-pointer text-destructive" 
+                      data-testid="button-logout"
+                    >
                       <LogOut className="h-4 w-4" />
                       Logout
-                    </a>
+                    </button>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
               <Button asChild data-testid="button-login">
-                <a href="/api/login">Login</a>
+                <Link href="/login">Login</Link>
               </Button>
             )}
           </div>

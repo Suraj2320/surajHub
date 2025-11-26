@@ -38,9 +38,9 @@ export default function Checkout() {
         description: "You need to login to proceed with checkout",
         variant: "destructive"
       });
-      window.location.href = "/api/login";
+      setLocation("/login");
     }
-  }, [isAuthenticated, isLoading, toast]);
+  }, [isAuthenticated, isLoading, toast, setLocation]);
 
   useEffect(() => {
     if (items.length === 0 && !isProcessing) {

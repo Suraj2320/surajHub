@@ -5,8 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/hooks/useAuth";
+import { useLocation } from "wouter";
 
 export default function Cart() {
+  const [, navigate] = useLocation();
   const { items, updateQuantity, removeFromCart, getSubtotal, getTax, getShipping, getTotal } = useCart();
   const { isAuthenticated } = useAuth();
 
@@ -174,8 +176,8 @@ export default function Cart() {
                   <Link href="/checkout">Proceed to Checkout</Link>
                 </Button>
               ) : (
-                <Button className="w-full" size="lg" asChild data-testid="button-login-checkout">
-                  <a href="/api/login">Login to Checkout</a>
+                <Button className="w-full" size="lg" onClick={() => navigate("/login")} data-testid="button-login-checkout">
+                  Login to Checkout
                 </Button>
               )}
 
