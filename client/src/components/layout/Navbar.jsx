@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Search, ShoppingCart, User, Menu, X, ChevronDown, LogOut, Package, Heart, Settings, LayoutDashboard } from "lucide-react";
+import { Search, ShoppingCart, User, Menu, ChevronDown, LogOut, Package, Heart, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -22,18 +22,14 @@ import { useAuth } from "@/hooks/useAuth";
 import { useCart } from "@/context/CartContext";
 import { categories } from "@/data/products";
 
-interface NavbarProps {
-  onSearch?: (query: string) => void;
-}
-
-export function Navbar({ onSearch }: NavbarProps) {
+export function Navbar({ onSearch }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [, setLocation] = useLocation();
   const { user, isAuthenticated, isLoading } = useAuth();
   const { getItemCount } = useCart();
   const itemCount = getItemCount();
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
       setLocation(`/search?q=${encodeURIComponent(searchQuery.trim())}`);

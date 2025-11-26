@@ -1,32 +1,12 @@
 import { createContext, useContext, useState, useEffect, useCallback } from "react";
-import type { ProductData } from "@/data/products";
 import { useToast } from "@/hooks/use-toast";
 
-export interface CartItem {
-  product: ProductData;
-  quantity: number;
-}
-
-interface CartContextType {
-  items: CartItem[];
-  addToCart: (product: ProductData, quantity?: number) => void;
-  removeFromCart: (productId: number) => void;
-  updateQuantity: (productId: number, quantity: number) => void;
-  clearCart: () => void;
-  getItemCount: () => number;
-  getSubtotal: () => number;
-  getTax: () => number;
-  getShipping: () => number;
-  getTotal: () => number;
-  isInCart: (productId: number) => boolean;
-}
-
-const CartContext = createContext<CartContextType | undefined>(undefined);
+const CartContext = createContext(undefined);
 
 const CART_STORAGE_KEY = "ecommerce_cart";
 
-export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>(() => {
+export function CartProvider({ children }) {
+  const [items, setItems] = useState(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem(CART_STORAGE_KEY);
       return saved ? JSON.parse(saved) : [];
@@ -40,7 +20,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
   }, [items]);
 
-  const addToCart = useCallback((product: ProductData, quantity: number = 1) => {
+  const addToCart = useCallback((product, quantity = 1) => {
     setItems(prev => {
       const existingIndex = prev.findIndex(item => item.product.id === product.id);
       
@@ -62,7 +42,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
   }, [toast]);
 
-  const removeFromCart = useCallback((productId: number) => {
+  const removeFromCart = useCallback((productId) => {
     setItems(prev => prev.filter(item => item.product.id !== productId));
     toast({
       title: "Removed from Cart",
@@ -70,9 +50,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
   }, [toast]);
 
-  const updateQuantity = useCallback((productId: number, quantity: number) => {
+  const updateQuantity = useCallback((productId, quantity) => {
     if (quantity <= 0) {
-      removeFromCart(productId);
+      setItems(prev => prev.filter(item => item.product.id !== productId));
       return;
     }
     
@@ -81,7 +61,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         ? { ...item, quantity }
         : item
     ));
-  }, [removeFromCart]);
+  }, []);
 
   const clearCart = useCallback(() => {
     setItems([]);
@@ -111,7 +91,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return getSubtotal() + getTax() + getShipping();
   }, [getSubtotal, getTax, getShipping]);
 
-  const isInCart = useCallback((productId: number) => {
+  const isInCart = useCallback((productId) => {
     return items.some(item => item.product.id === productId);
   }, [items]);
 

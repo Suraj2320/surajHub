@@ -1,40 +1,8 @@
 // Comprehensive product data for e-commerce platform
 // 10-15 categories with 40-50 products each with full specifications
 
-export interface ProductSpec {
-  [key: string]: string | number | boolean;
-}
-
-export interface ProductData {
-  id: number;
-  name: string;
-  slug: string;
-  description: string;
-  price: number;
-  discountPrice: number;
-  categoryId: number;
-  categorySlug: string;
-  subcategory: string;
-  brand: string;
-  stock: number;
-  ratingAvg: number;
-  reviewCount: number;
-  specifications: ProductSpec;
-  images: string[];
-  isFeatured: boolean;
-}
-
-export interface CategoryData {
-  id: number;
-  name: string;
-  slug: string;
-  description: string;
-  imageUrl: string;
-  subcategories: string[];
-}
-
 // Categories
-export const categories: CategoryData[] = [
+export const categories = [
   {
     id: 1,
     name: "Mobile Phones",
@@ -173,17 +141,17 @@ const beautyBrands = ["L'Oreal", "Maybelline", "MAC", "Lakme", "Nivea", "The Bod
 
 // Helper function to generate products
 function generateProducts(
-  categoryId: number,
-  categorySlug: string,
-  subcategories: string[],
-  brands: string[],
-  nameTemplates: string[],
-  specGenerator: (brand: string, index: number) => ProductSpec,
-  basePrice: number,
-  priceVariance: number,
-  count: number = 45
-): ProductData[] {
-  const products: ProductData[] = [];
+  categoryId,
+  categorySlug,
+  subcategories,
+  brands,
+  nameTemplates,
+  specGenerator,
+  basePrice,
+  priceVariance,
+  count = 45
+) {
+  const products = [];
   
   for (let i = 0; i < count; i++) {
     const brand = brands[i % brands.length];
@@ -549,7 +517,7 @@ const beautyProducts = generateProducts(
 );
 
 // Combine all products
-export const allProducts: ProductData[] = [
+export const allProducts = [
   ...mobileProducts,
   ...laptopProducts,
   ...tabletProducts,
@@ -568,22 +536,27 @@ export const allProducts: ProductData[] = [
 ];
 
 // Get products by category
-export function getProductsByCategory(categorySlug: string): ProductData[] {
+export function getProductsByCategory(categorySlug) {
   return allProducts.filter(p => p.categorySlug === categorySlug);
 }
 
 // Get product by slug
-export function getProductBySlug(slug: string): ProductData | undefined {
+export function getProductBySlug(slug) {
   return allProducts.find(p => p.slug === slug);
 }
 
+// Get product by ID
+export function getProductById(id) {
+  return allProducts.find(p => p.id === id);
+}
+
 // Get featured products
-export function getFeaturedProducts(): ProductData[] {
+export function getFeaturedProducts() {
   return allProducts.filter(p => p.isFeatured).slice(0, 20);
 }
 
 // Search products
-export function searchProducts(query: string): ProductData[] {
+export function searchProducts(query) {
   const lowerQuery = query.toLowerCase();
   return allProducts.filter(p => 
     p.name.toLowerCase().includes(lowerQuery) ||
@@ -594,38 +567,32 @@ export function searchProducts(query: string): ProductData[] {
 
 // Filter products
 export function filterProducts(
-  categorySlug?: string,
-  filters?: {
-    brands?: string[];
-    minPrice?: number;
-    maxPrice?: number;
-    minRating?: number;
-    subcategories?: string[];
-  },
-  sortBy?: 'price-low' | 'price-high' | 'rating' | 'newest' | 'discount'
-): ProductData[] {
+  categorySlug,
+  filters,
+  sortBy
+) {
   let filtered = categorySlug 
     ? allProducts.filter(p => p.categorySlug === categorySlug)
     : allProducts;
   
   if (filters?.brands?.length) {
-    filtered = filtered.filter(p => filters.brands!.includes(p.brand));
+    filtered = filtered.filter(p => filters.brands.includes(p.brand));
   }
   
   if (filters?.minPrice !== undefined) {
-    filtered = filtered.filter(p => p.discountPrice >= filters.minPrice!);
+    filtered = filtered.filter(p => p.discountPrice >= filters.minPrice);
   }
   
   if (filters?.maxPrice !== undefined) {
-    filtered = filtered.filter(p => p.discountPrice <= filters.maxPrice!);
+    filtered = filtered.filter(p => p.discountPrice <= filters.maxPrice);
   }
   
   if (filters?.minRating !== undefined) {
-    filtered = filtered.filter(p => p.ratingAvg >= filters.minRating!);
+    filtered = filtered.filter(p => p.ratingAvg >= filters.minRating);
   }
   
   if (filters?.subcategories?.length) {
-    filtered = filtered.filter(p => filters.subcategories!.includes(p.subcategory));
+    filtered = filtered.filter(p => filters.subcategories.includes(p.subcategory));
   }
   
   if (sortBy) {
@@ -656,13 +623,13 @@ export function filterProducts(
 }
 
 // Get all brands for a category
-export function getBrandsByCategory(categorySlug: string): string[] {
+export function getBrandsByCategory(categorySlug) {
   const products = getProductsByCategory(categorySlug);
   return [...new Set(products.map(p => p.brand))];
 }
 
 // Get price range for a category
-export function getPriceRange(categorySlug?: string): { min: number; max: number } {
+export function getPriceRange(categorySlug) {
   const products = categorySlug 
     ? getProductsByCategory(categorySlug)
     : allProducts;
@@ -674,4 +641,9 @@ export function getPriceRange(categorySlug?: string): { min: number; max: number
     min: Math.min(...prices),
     max: Math.max(...prices)
   };
+}
+
+// Get category by slug
+export function getCategoryBySlug(slug) {
+  return categories.find(c => c.slug === slug);
 }
