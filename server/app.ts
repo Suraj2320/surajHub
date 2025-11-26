@@ -1,4 +1,7 @@
 import { type Server } from "node:http";
+import session from "express-session";
+import connectPgSimple from "connect-pg-simple";
+import { Pool } from "@neondatabase/serverless";
 
 import express, {
   type Express,
@@ -27,12 +30,49 @@ declare module 'http' {
     rawBody: unknown
   }
 }
+
+declare module 'express-session' {
+  interface SessionData {
+    userId?: string;
+  }
+}
+
 app.use(express.json({
   verify: (req, _res, buf) => {
     req.rawBody = buf;
   }
 }));
 app.use(express.urlencoded({ extended: false }));
+
+// Session setup
+const pgPool = new Pool({ connectionString: process.env.DATABASE_URL });
+const PgSession = connectPgSimple(session);
+
+const sessionMiddleware = session({
+  store: new PgSession({
+    pool: pgPool as any,
+    tableName: 'sessions'
+  }),
+  secret: process.env.SESSION_SECRET || 'dev-secret-change-in-production',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax'
+  }
+});
+
+app.use(sessionMiddleware);
+
+// Auth middleware to populate req.user
+app.use((req, res, next) => {
+  if (req.session?.userId) {
+    req.user = { id: req.session.userId };
+  }
+  next();
+});
 
 app.use((req, res, next) => {
   const start = Date.now();
