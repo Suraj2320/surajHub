@@ -1,0 +1,286 @@
+# Full-Stack E-Commerce Application - Complete Project Prompt
+
+## Tech Stack
+- **Frontend**: React + Vite, Tailwind CSS (all files in `.jsx` format)
+- **Backend**: Node.js + Express.js
+- **Database**: MongoDB
+- **Payment**: Payment Gateway Integration
+
+## Core Features Required
+
+### 1. Authentication & Authorization System
+- **Security-First Design**
+- User Sign Up / Login
+- Admin Login
+- Seller Login
+- **Role-Based Access Control (RBAC)**:
+  - **User Role**: Browse, search, filter, buy products
+  - **Seller Role**: Add, edit, delete their own products
+  - **Admin Role**: Full access to everything (users, sellers, products, orders)
+- JWT-based authentication
+- Password hashing (bcrypt)
+- Protected routes on both frontend and backend
+
+### 2. User Roles & Permissions
+
+#### Admin
+- View all users, sellers, and products
+- Manage all products (CRUD operations)
+- View all orders
+- Dashboard with analytics
+
+#### Seller
+- Register as seller
+- Add new products
+- Edit own products
+- Delete own products
+- View own product sales
+- Manage inventory
+
+#### User/Customer
+- Sign up and login
+- Browse products
+- Search and filter products
+- Add products to cart
+- Checkout with payment gateway
+- View order history
+- User profile management
+
+### 3. Product Catalog (Real-World Data)
+**Minimum 100+ products in each category:**
+- **Mobile Phones** (100+ products)
+- **Girls Fashion** (100+ products)
+- **Boys Fashion** (100+ products)
+
+**Product Details Include:**
+- Product name
+- Description
+- Price (original + discounted)
+- Category
+- Sub-category
+- Brand
+- Images (multiple)
+- Stock quantity
+- Ratings & reviews
+- Specifications
+- Seller information
+
+### 4. E-Commerce Features (Flipkart-like)
+
+#### Navigation & UI
+- **Navbar at top** with:
+  - Logo
+  - Search bar
+  - Categories dropdown
+  - Cart icon with count
+  - User profile/Login button
+  - Seller/Admin dashboard link (role-based)
+
+#### Product Browsing
+- Homepage with featured products
+- Category pages
+- Product detail page
+- **Advanced Search**:
+  - Search by product name
+  - Search by brand
+  - Search by category
+- **Filtering Options**:
+  - Price range slider
+  - Brand filter
+  - Rating filter
+  - Category filter
+  - Sort by: Price (low to high, high to low), Popularity, Newest
+- Pagination
+
+#### Shopping Cart
+- Add to cart
+- Update quantity
+- Remove from cart
+- Cart summary with total
+- Persistent cart (saved in database)
+
+#### Checkout & Payment
+- Shipping address form
+- Order summary
+- **Payment Gateway Integration** (Stripe/Razorpay/PayPal)
+- Order confirmation
+- Order tracking
+
+#### User Dashboard
+- Order history
+- Profile management
+- Saved addresses
+- Wishlist (optional)
+
+#### Seller Dashboard
+- Product management (add/edit/delete)
+- Inventory management
+- Sales analytics
+- Order fulfillment
+
+#### Admin Dashboard
+- User management
+- Seller management
+- Product management (all products)
+- Order management
+- Analytics and reports
+
+### 5. Backend API Structure
+
+#### Authentication Endpoints
+```
+POST /api/auth/signup
+POST /api/auth/login
+POST /api/auth/logout
+GET  /api/auth/me (get current user)
+```
+
+#### User Endpoints
+```
+GET    /api/users (admin only)
+GET    /api/users/:id
+PUT    /api/users/:id
+DELETE /api/users/:id (admin only)
+```
+
+#### Product Endpoints
+```
+GET    /api/products (all products with filtering)
+GET    /api/products/:id
+POST   /api/products (seller/admin)
+PUT    /api/products/:id (seller/admin)
+DELETE /api/products/:id (seller/admin)
+GET    /api/products/category/:category
+GET    /api/products/search?q=query
+```
+
+#### Cart Endpoints
+```
+GET    /api/cart
+POST   /api/cart/add
+PUT    /api/cart/update
+DELETE /api/cart/remove/:productId
+DELETE /api/cart/clear
+```
+
+#### Order Endpoints
+```
+POST   /api/orders (create order)
+GET    /api/orders (get user orders)
+GET    /api/orders/:id
+PUT    /api/orders/:id/status (seller/admin)
+GET    /api/admin/orders (admin - all orders)
+```
+
+#### Payment Endpoints
+```
+POST /api/payment/create-intent
+POST /api/payment/verify
+```
+
+### 6. Database Schema (MongoDB Models)
+
+#### User Model
+- name, email, password (hashed), role (user/seller/admin), phone, addresses, createdAt
+
+#### Product Model
+- name, description, price, discountPrice, category, subcategory, brand, images, stock, seller (ref), ratings, reviews, specifications, createdAt
+
+#### Order Model
+- user (ref), products (array), totalAmount, shippingAddress, paymentStatus, orderStatus, paymentMethod, createdAt
+
+#### Cart Model
+- user (ref), items (array of product refs + quantity), totalPrice
+
+### 7. Security Requirements
+- Input validation and sanitization
+- SQL/NoSQL injection prevention
+- XSS protection
+- CSRF protection
+- Rate limiting on API endpoints
+- Secure password storage (bcrypt)
+- JWT token expiration and refresh
+- HTTPS in production
+- Environment variables for sensitive data
+- CORS configuration
+
+### 8. Frontend Components Structure
+```
+/src
+  /components
+    /common
+      - Navbar.jsx
+      - Footer.jsx
+      - Loader.jsx
+    /auth
+      - Login.jsx
+      - Signup.jsx
+      - ProtectedRoute.jsx
+    /products
+      - ProductCard.jsx
+      - ProductList.jsx
+      - ProductDetail.jsx
+      - ProductFilter.jsx
+      - SearchBar.jsx
+    /cart
+      - Cart.jsx
+      - CartItem.jsx
+    /checkout
+      - Checkout.jsx
+      - PaymentForm.jsx
+    /user
+      - UserDashboard.jsx
+      - OrderHistory.jsx
+      - Profile.jsx
+    /seller
+      - SellerDashboard.jsx
+      - AddProduct.jsx
+      - EditProduct.jsx
+      - ProductManagement.jsx
+    /admin
+      - AdminDashboard.jsx
+      - UserManagement.jsx
+      - OrderManagement.jsx
+  /pages
+    - Home.jsx
+    - ProductsPage.jsx
+    - CategoryPage.jsx
+  /context
+    - AuthContext.jsx
+    - CartContext.jsx
+  /utils
+    - api.js
+    - auth.js
+```
+
+### 9. Additional Features
+- Responsive design (mobile, tablet, desktop)
+- Toast notifications for user actions
+- Loading states
+- Error handling
+- Image optimization
+- Product reviews and ratings
+- Related products section
+- Recently viewed products
+- Product recommendations
+
+### 10. Deliverables
+1. Complete backend API with all endpoints
+2. MongoDB database with realistic seed data (300+ products)
+3. React frontend with all pages and components
+4. Full authentication and authorization system
+5. Payment gateway integration
+6. Responsive UI with Tailwind CSS
+7. README with setup instructions
+8. Environment variable template (.env.example)
+
+## Getting Started Instructions Needed
+- Installation steps
+- Environment setup
+- Database seeding script
+- How to run frontend and backend
+- API documentation
+
+---
+
+**Goal**: Create a production-ready, full-stack e-commerce platform similar to Flipkart with robust security, real-world data, and complete user/seller/admin functionality.
