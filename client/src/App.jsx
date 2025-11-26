@@ -18,6 +18,9 @@ import Checkout from "@/pages/Checkout";
 import OrderSuccess from "@/pages/OrderSuccess";
 import Account from "@/pages/Account";
 import Orders from "@/pages/Orders";
+import Wishlist from "@/pages/Wishlist";
+import Admin from "@/pages/Admin";
+import Seller from "@/pages/Seller";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -34,6 +37,9 @@ function Router() {
       <Route path="/order-success" component={OrderSuccess} />
       <Route path="/account" component={Account} />
       <Route path="/orders" component={Orders} />
+      <Route path="/wishlist" component={Wishlist} />
+      <Route path="/admin" component={Admin} />
+      <Route path="/seller" component={Seller} />
       <Route component={NotFound} />
     </Switch>
   );
