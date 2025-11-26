@@ -50,7 +50,7 @@ export default function Login() {
         <CardHeader className="text-center bg-gradient-to-r from-primary/20 to-accent/20">
           <CardTitle className="text-3xl font-black bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent" data-testid="text-login-title">Welcome Back</CardTitle>
           <p className="text-sm text-white/70 mt-2 font-medium">
-            Sign in to your ShopHub account
+            Sign in to your SurajHub account
           </p>
         </CardHeader>
         <CardContent>

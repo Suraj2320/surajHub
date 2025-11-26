@@ -48,7 +48,7 @@ export function Footer() {
           <div className="lg:col-span-1">
             <Link href="/">
               <h3 className="text-2xl font-black bg-gradient-to-r from-primary via-primary/80 to-accent bg-clip-text text-transparent mb-2">
-                ShopHub
+                SurajHub
               </h3>
             </Link>
             <p className="text-sm text-muted-foreground mb-6">
@@ -130,7 +130,7 @@ export function Footer() {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground text-center md:text-left">
-            © {currentYear} ShopHub. All rights reserved. | Made with ❤️ in India
+            © {currentYear} SurajHub. All rights reserved. | Made with ❤️ in India
           </p>
           
           <div className="flex gap-4 text-sm text-muted-foreground">

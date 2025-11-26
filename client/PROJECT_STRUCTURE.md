@@ -1,7 +1,7 @@
-# ShopHub - Complete Project Structure & Architecture Guide
+# SurajHub - Complete Project Structure & Architecture Guide
 
 ## 🎯 Project Overview
-ShopHub is a **production-ready e-commerce platform** built with modern tech stack:
+SurajHub is a **production-ready e-commerce platform** built with modern tech stack:
 - **Frontend**: React 18 + Vite + Tailwind CSS
 - **Backend**: Node.js + Express + PostgreSQL
 - **Design**: Futuristic UI inspired by Flipkart/Amazon
@@ -421,4 +421,4 @@ POST   /api/support/contact  # Submit contact form
 ---
 
 ## 📄 License
-All rights reserved © ShopHub 2025
+All rights reserved © SurajHub 2025

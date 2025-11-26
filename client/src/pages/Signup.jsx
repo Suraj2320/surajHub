@@ -64,7 +64,7 @@ export default function Signup() {
       <Card className="w-full max-w-md relative z-10 border-white/20 bg-white/10 backdrop-blur-xl shadow-2xl" data-testid="card-signup">
         <CardHeader className="text-center bg-gradient-to-r from-accent/20 to-primary/20">
           <CardTitle className="text-3xl font-black bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent" data-testid="text-signup-title">
-            Join ShopHub
+            Join SurajHub
           </CardTitle>
           <p className="text-sm text-white/70 mt-2 font-medium">
             Create your account and start shopping today

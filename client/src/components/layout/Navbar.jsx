@@ -66,36 +66,60 @@ export function Navbar({ onSearch }) {
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-80 p-0">
+              <SheetContent side="left" className="w-80 p-0 bg-gradient-to-b from-background to-muted/50">
                 <div className="flex flex-col h-full">
-                  <div className="p-4 border-b">
+                  <div className="p-6 border-b border-white/10 bg-gradient-to-r from-orange-500/10 to-red-500/10 backdrop-blur-sm">
                     <Link href="/">
-                      <span className="text-2xl font-bold text-primary" data-testid="link-logo-mobile">ShopHub</span>
+                      <div className="flex items-center gap-2">
+                        <div className="relative w-8 h-8">
+                          <div className="absolute inset-0 bg-gradient-to-br from-amber-400 via-orange-500 to-red-600 rounded-lg" />
+                          <div className="absolute inset-1 bg-gradient-to-br from-yellow-300 via-orange-400 to-red-500 rounded-md" />
+                          <div className="absolute inset-2 bg-gradient-to-br from-white/80 to-yellow-100 rounded-sm flex items-center justify-center">
+                            <span className="text-xl font-black bg-gradient-to-br from-orange-600 to-red-700 bg-clip-text text-transparent">S</span>
+                          </div>
+                        </div>
+                        <span className="text-2xl font-black bg-gradient-to-r from-amber-400 via-orange-500 to-red-600 bg-clip-text text-transparent" data-testid="link-logo-mobile">SurajHub</span>
+                      </div>
                     </Link>
                   </div>
-                  <nav className="flex-1 overflow-y-auto p-4">
-                    <p className="text-sm font-medium text-muted-foreground mb-3">Categories</p>
-                    <div className="space-y-1">
-                      {categories.map((category) => (
-                        <SheetClose asChild key={category.id}>
-                          <Link href={`/category/${category.slug}`}>
-                            <div 
-                              className="block px-3 py-2 rounded-md hover-elevate cursor-pointer"
-                              data-testid={`link-category-mobile-${category.slug}`}
-                            >
-                              {category.name}
-                            </div>
-                          </Link>
-                        </SheetClose>
-                      ))}
-                    </div>
+                  <nav className="flex-1 overflow-y-auto p-4 space-y-2">
+                    <p className="text-xs font-bold text-muted-foreground/70 uppercase tracking-widest px-3 mb-4">🛍️ Categories</p>
+                    {categories.map((category) => (
+                      <SheetClose asChild key={category.id}>
+                        <Link href={`/category/${category.slug}`}>
+                          <div 
+                            className="block px-4 py-3 rounded-lg hover:bg-gradient-to-r hover:from-orange-500/20 hover:to-red-500/20 hover:border-orange-500/30 cursor-pointer transition-all duration-200 border border-transparent backdrop-blur-sm"
+                            data-testid={`link-category-mobile-${category.slug}`}
+                          >
+                            <span className="font-medium text-sm">{category.name}</span>
+                          </div>
+                        </Link>
+                      </SheetClose>
+                    ))}
                   </nav>
+                  <div className="p-4 border-t border-white/10 bg-gradient-to-r from-orange-500/10 to-red-500/10 backdrop-blur-sm space-y-2">
+                    <p className="text-xs font-bold text-muted-foreground/70 uppercase">Quick Links</p>
+                    <SheetClose asChild>
+                      <Link href="/support">
+                        <div className="text-sm text-muted-foreground hover:text-primary transition-colors">📞 Help Center</div>
+                      </Link>
+                    </SheetClose>
+                  </div>
                 </div>
               </SheetContent>
             </Sheet>
 
             <Link href="/">
-              <span className="text-xl md:text-2xl font-black bg-gradient-to-r from-primary via-primary/80 to-accent bg-clip-text text-transparent" data-testid="link-logo">ShopHub</span>
+              <div className="flex items-center gap-2.5 group">
+                <div className="relative w-10 h-10 flex-shrink-0">
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-400 via-orange-500 to-red-600 rounded-lg group-hover:shadow-2xl group-hover:shadow-orange-500/50 transition-all duration-300" />
+                  <div className="absolute inset-1 bg-gradient-to-br from-yellow-300 via-orange-400 to-red-500 rounded-md" />
+                  <div className="absolute inset-2 bg-gradient-to-br from-white/80 to-yellow-100 rounded-sm flex items-center justify-center">
+                    <span className="text-2xl font-black bg-gradient-to-br from-orange-600 to-red-700 bg-clip-text text-transparent">S</span>
+                  </div>
+                </div>
+                <span className="hidden sm:block text-xl md:text-2xl font-black bg-gradient-to-r from-amber-400 via-orange-500 to-red-600 bg-clip-text text-transparent group-hover:from-amber-300 group-hover:to-red-500 transition-all" data-testid="link-logo">SurajHub</span>
+              </div>
             </Link>
           </div>
 

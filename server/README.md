@@ -1,7 +1,7 @@
-# ShopHub Backend - Node.js + Express + PostgreSQL
+# SurajHub Backend - Node.js + Express + PostgreSQL
 
 ## Project Overview
-ShopHub backend is a production-grade REST API built with Express.js and PostgreSQL. It handles all e-commerce operations including user authentication, product management, shopping cart, orders, payments, and admin/seller operations.
+SurajHub backend is a production-grade REST API built with Express.js and PostgreSQL. It handles all e-commerce operations including user authentication, product management, shopping cart, orders, payments, and admin/seller operations.
 
 ## Architecture
 
@@ -444,4 +444,4 @@ curl http://localhost:3000/api/products?category=electronics&limit=10
 - Docs: https://api.shophub.com/docs
 
 ## License
-All rights reserved © ShopHub 2025
+All rights reserved © SurajHub 2025

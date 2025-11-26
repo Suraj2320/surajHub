@@ -6,7 +6,7 @@ export default function PrivacyPolicy() {
   const sections = [
     {
       title: "1. Introduction",
-      content: "ShopHub ('we', 'us', 'our' or 'Company') operates the ShopHub website. This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data."
+      content: "SurajHub ('we', 'us', 'our' or 'Company') operates the SurajHub website. This page informs you of our policies regarding the collection, use, and disclosure of personal data when you use our Service and the choices you have associated with that data."
     },
     {
       title: "2. Information Collection and Use",
@@ -29,7 +29,7 @@ export default function PrivacyPolicy() {
       title: "3. Use of Data",
       subsections: [
         {
-          subtitle: "3.1 ShopHub uses the collected data for various purposes:",
+          subtitle: "3.1 SurajHub uses the collected data for various purposes:",
           content: "• To provide and maintain our Service\n• To notify you about changes to our Service\n• To allow you to participate in interactive features\n• To provide customer support\n• To gather analysis or valuable information for service improvement\n• To monitor usage patterns and detect fraudulent activity\n• To personalize your shopping experience"
         }
       ]

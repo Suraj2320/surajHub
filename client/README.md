@@ -1,7 +1,7 @@
-# ShopHub Frontend - React + Vite + Tailwind CSS
+# SurajHub Frontend - React + Vite + Tailwind CSS
 
 ## Project Overview
-ShopHub is a production-ready e-commerce platform built with React and Vite. The frontend is a modern, futuristic shopping platform inspired by Flipkart and Amazon with advanced Tailwind CSS styling, glassmorphism effects, and smooth animations.
+SurajHub is a production-ready e-commerce platform built with React and Vite. The frontend is a modern, futuristic shopping platform inspired by Flipkart and Amazon with advanced Tailwind CSS styling, glassmorphism effects, and smooth animations.
 
 ## Folder Structure
 

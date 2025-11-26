@@ -47,7 +47,7 @@ export default function Contact() {
     {
       icon: MapPin,
       title: "Office",
-      value: "ShopHub HQ, Mumbai",
+      value: "SurajHub HQ, Mumbai",
       description: "Mon - Sun, 9 AM - 6 PM IST",
       color: "from-purple-500 to-purple-600"
     },
@@ -251,7 +251,7 @@ export default function Contact() {
                     Office Address
                   </h3>
                   <div className="text-sm space-y-1">
-                    <p className="font-semibold">ShopHub Headquarters</p>
+                    <p className="font-semibold">SurajHub Headquarters</p>
                     <p className="text-muted-foreground">
                       Bandra Kurla Complex<br />
                       Mumbai, Maharashtra 400051<br />
