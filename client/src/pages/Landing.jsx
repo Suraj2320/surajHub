@@ -40,8 +40,8 @@ export default function Landing() {
                 find everything you need with the best deals and fast delivery.
               </p>
               <div className="flex flex-wrap gap-4">
-                <Button size="lg" asChild data-testid="button-landing-login">
-                  <a href="/api/login">Get Started</a>
+                <Button size="lg" asChild data-testid="button-landing-signup">
+                  <Link href="/signup">Get Started</Link>
                 </Button>
                 <Button size="lg" variant="outline" asChild data-testid="button-landing-browse">
                   <Link href="#categories">Browse Products</Link>
@@ -157,7 +157,7 @@ export default function Landing() {
             Join millions of happy customers and discover amazing deals today.
           </p>
           <Button size="lg" variant="secondary" asChild data-testid="button-landing-cta">
-            <a href="/api/login">Create Free Account</a>
+            <Link href="/signup">Create Free Account</Link>
           </Button>
         </div>
       </section>
