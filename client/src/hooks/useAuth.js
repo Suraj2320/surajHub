@@ -1,5 +1,20 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
+import { queryClient } from "@/lib/queryClient";
+
+// Get JWT token from localStorage
+export function getAuthToken() {
+  return localStorage.getItem("authToken");
+}
+
+// Save JWT token to localStorage
+export function setAuthToken(token) {
+  if (token) {
+    localStorage.setItem("authToken", token);
+  } else {
+    localStorage.removeItem("authToken");
+  }
+}
 
 export function useAuth() {
   const { data: user, isLoading, refetch } = useQuery({
@@ -14,7 +29,6 @@ export function useAuth() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),
-        credentials: "include",
       });
       if (!res.ok) {
         const err = await res.json();
@@ -22,7 +36,12 @@ export function useAuth() {
       }
       return res.json();
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      // Save JWT token to localStorage
+      if (data.token) {
+        setAuthToken(data.token);
+      }
+      // Refetch user data with new token
       refetch();
     },
   });
@@ -33,7 +52,6 @@ export function useAuth() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),
-        credentials: "include",
       });
       if (!res.ok) {
         const err = await res.json();
@@ -41,7 +59,12 @@ export function useAuth() {
       }
       return res.json();
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      // Save JWT token to localStorage
+      if (data.token) {
+        setAuthToken(data.token);
+      }
+      // Refetch user data with new token
       refetch();
     },
   });
@@ -50,12 +73,19 @@ export function useAuth() {
     mutationFn: async () => {
       const res = await fetch("/api/auth/logout", {
         method: "POST",
-        credentials: "include",
+        headers: {
+          "Authorization": `Bearer ${getAuthToken()}`,
+          "Content-Type": "application/json",
+        },
       });
       if (!res.ok) throw new Error("Logout failed");
       return res.json();
     },
     onSuccess: () => {
+      // Clear token from localStorage
+      setAuthToken(null);
+      // Invalidate user query
+      queryClient.invalidateQueries({ queryKey: ["/api/auth/user"] });
       refetch();
     },
   });
