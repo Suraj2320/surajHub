@@ -1,19 +1,46 @@
 import { db } from "./db.js";
 import { users, products, categories, orders, reviews, addresses } from "../shared/schema.js";
 import { eq, and } from "drizzle-orm";
+import { verifyPassword } from "./password.utils.js";
 
 export class DatabaseStorage {
   async getUser(id) {
-    return db.query.users.findFirst({ where: eq(users.id, id) });
+    const user = await db.query.users.findFirst({ where: eq(users.id, id) });
+    // Never return password hash
+    if (user) {
+      const { passwordHash, ...safeUser } = user;
+      return safeUser;
+    }
+    return null;
   }
 
   async getUserByEmail(email) {
     return db.query.users.findFirst({ where: eq(users.email, email) });
   }
 
+  // Verify user login
+  async verifyUserLogin(email, password) {
+    const user = await this.getUserByEmail(email);
+    if (!user) {
+      return null; // User not found
+    }
+    
+    const isPasswordValid = verifyPassword(password, user.passwordHash);
+    if (!isPasswordValid) {
+      return null; // Invalid password
+    }
+
+    // Return safe user data without password hash
+    const { passwordHash, ...safeUser } = user;
+    return safeUser;
+  }
+
   async createUser(insertUser) {
     const result = await db.insert(users).values(insertUser).returning();
-    return result[0];
+    const user = result[0];
+    // Don't return password hash
+    const { passwordHash, ...safeUser } = user;
+    return safeUser;
   }
 
   async updateUser(id, data) {
