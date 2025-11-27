@@ -72,7 +72,56 @@ export class DatabaseStorage {
   }
 
   async getUserOrders(userId) {
-    return db.query.orders.findMany({ where: eq(orders.userId, userId) });
+    const userOrders = await db.query.orders.findMany({ 
+      where: eq(orders.userId, userId),
+      orderBy: (orders, { desc }) => [desc(orders.createdAt)]
+    });
+    
+    // Fetch order items for each order
+    const ordersWithItems = await Promise.all(
+      userOrders.map(async (order) => {
+        const items = await db.query.orderItems.findMany({
+          where: eq(orderItems.orderId, order.id)
+        });
+        
+        // Fetch product details for each item
+        const itemsWithProducts = await Promise.all(
+          items.map(async (item) => {
+            const product = await db.query.products.findFirst({
+              where: eq(products.id, item.productId)
+            });
+            return { ...item, product };
+          })
+        );
+        
+        return { ...order, items: itemsWithProducts };
+      })
+    );
+    
+    return ordersWithItems;
+  }
+
+  async getOrderDetails(orderId, userId) {
+    const order = await db.query.orders.findFirst({
+      where: and(eq(orders.id, orderId), eq(orders.userId, userId))
+    });
+    
+    if (!order) return null;
+    
+    const items = await db.query.orderItems.findMany({
+      where: eq(orderItems.orderId, orderId)
+    });
+    
+    const itemsWithProducts = await Promise.all(
+      items.map(async (item) => {
+        const product = await db.query.products.findFirst({
+          where: eq(products.id, item.productId)
+        });
+        return { ...item, product };
+      })
+    );
+    
+    return { ...order, items: itemsWithProducts };
   }
 
   async getUserAddresses(userId) {
