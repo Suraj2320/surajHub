@@ -12,7 +12,7 @@ on:
       - develop
 
 env:
-  REGISTRY: ghcr.io
+  REGISTRY: 779424485233.dkr.ecr.us-east-1.amazonaws.com
   AWS_REGION: us-east-1
 
 jobs:
