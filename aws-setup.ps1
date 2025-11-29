@@ -77,8 +77,8 @@ function Setup-ECR {
     aws ecr create-repository `
         --repository-name surajhub `
         --region us-east-1 `
-        --image-scan-on-push `
-        --encryption-configuration encryptionType=AES
+        --image-scanning-configuration scanOnPush=true `
+        --encryption-configuration encryptionType=AES256
 
     Write-Host "Logging in to ECR..."
     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin "$accountId.dkr.ecr.us-east-1.amazonaws.com"
