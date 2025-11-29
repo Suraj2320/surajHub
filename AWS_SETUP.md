@@ -310,8 +310,9 @@ aws application-autoscaling put-scaling-policy \
 
 Add these secrets to GitHub repository (Settings → Secrets):
 ```
+AWS_ACCESS_KEY_ID=your_access_key_id
+AWS_SECRET_ACCESS_KEY=your_secret_access_key
 AWS_REGION=us-east-1
-AWS_ROLE_ARN=arn:aws:iam::ACCOUNT_ID:role/github-actions-role
 ECR_REGISTRY=ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com
 ECS_CLUSTER=surajhub-prod
 ECS_SERVICE=surajhub
