@@ -1,5 +1,5 @@
 import { db } from "./db.js";
-import { users, products, categories, orders, reviews, addresses } from "../shared/schema.js";
+import { users, products, categories, orders, reviews, addresses } from "../shared/schema.ts";
 import { eq, and } from "drizzle-orm";
 
 export class DatabaseStorage {

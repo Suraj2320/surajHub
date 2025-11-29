@@ -1,7 +1,7 @@
 import { createServer } from "http";
 import { storage } from "./storage.js";
 import { db } from "./db.js";
-import { reviews } from "../shared/schema.js";
+import { reviews } from "../shared/schema.ts";
 import { eq } from "drizzle-orm";
 
 export async function registerRoutes(app) {

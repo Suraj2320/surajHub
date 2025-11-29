@@ -34,6 +34,14 @@ aws configure
 # Default output format: json
 ```
 
+### 4. Windows Users (PowerShell)
+If you are using Windows, we have provided a PowerShell script to automate many of these steps.
+```powershell
+# Run the setup script
+.\aws-setup.ps1
+```
+The script provides an interactive menu to guide you through the deployment phases.
+
 ---
 
 ## 🚀 Step-by-Step Deployment on AWS

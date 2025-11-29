@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import session from "express-session";
 import connectPgSimple from "connect-pg-simple";
 import { Pool } from "@neondatabase/serverless";

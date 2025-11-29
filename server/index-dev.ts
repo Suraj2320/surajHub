@@ -1,9 +1,11 @@
+import dotenv from "dotenv";
+dotenv.config();
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { nanoid } from "nanoid";
 import { createServer as createViteServer, createLogger } from "vite";
-import viteConfig from "../vite.config.js";
+import viteConfig from "../vite.config.ts";
 import runApp from "./app.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

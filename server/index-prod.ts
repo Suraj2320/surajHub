@@ -1,8 +1,9 @@
+import express from "express";                  // ⬅️ MUST BE FIRST
+import compression from "compression";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createServer as createHttpServer } from "node:http";
-import compression from "compression";
 import runApp from "./app.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

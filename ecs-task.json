@@ -1,0 +1,27 @@
+{
+  "family": "ecommerce-task",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "arn:aws:iam::779424485233:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::779424485233:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "ecommerce-container",
+      "image": "779424485233.dkr.ecr.us-east-1.amazonaws.com/ecommerce-store:latest",
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 5000,
+          "hostPort": 5000,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        { "name": "DATABASE_URL", "value": "postgresql://USER:PASSWORD@HOST:5432/DBNAME" },
+        { "name": "NODE_ENV", "value": "production" }
+      ]
+    }
+  ]
+}

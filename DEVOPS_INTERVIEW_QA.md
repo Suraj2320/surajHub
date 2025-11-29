@@ -178,7 +178,7 @@ LIMIT 10;
 **A:**
 ```dockerfile
 # Each line creates a layer
-FROM node:18-alpine        # Layer 1: Base image
+FROM node:20-alpine        # Layer 1: Base image
 WORKDIR /app               # Layer 2: Working directory
 COPY package.json .        # Layer 3: Package file
 RUN npm install            # Layer 4: Dependencies
@@ -192,13 +192,13 @@ Docker caches layers. If Layer 5 changes, Layer 6 rebuilds but Layer 4 (npm inst
 **A:** Reduces final image size:
 ```dockerfile
 # Build stage
-FROM node:18-alpine AS builder
+FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package.json .
 RUN npm install
 
 # Runtime stage
-FROM node:18-alpine
+FROM node:20-alpine
 COPY --from=builder /app/node_modules ./node_modules
 COPY . .
 CMD ["npm", "start"]

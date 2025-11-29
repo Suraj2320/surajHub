@@ -60,7 +60,7 @@ cp .env.example .env
 
 ```bash
 # Install all npm packages
-npm ci
+cp .env.example .env
 
 # This will download ~500MB of dependencies
 # Wait for it to complete (will show "added XXX packages")
