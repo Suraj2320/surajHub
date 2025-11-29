@@ -12,7 +12,7 @@ on:
       - develop
 
 env:
-  REGISTRY: ghcr.io
+  REGISTRY: ghcr.io 
   AWS_REGION: us-east-1
 
 jobs:
