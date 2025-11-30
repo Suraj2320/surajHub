@@ -122,6 +122,7 @@ jobs:
         aws ecs update-service \
           --cluster ${{ secrets.ECS_CLUSTER }} \
           --service ${{ secrets.ECS_SERVICE }} \
+          --task-definition surajhub \
           --force-new-deployment
 
     - name: Verify deployment
