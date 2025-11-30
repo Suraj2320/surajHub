@@ -115,18 +115,13 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
         docker tag $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG $ECR_REGISTRY/$ECR_REPOSITORY:latest
-          --cli-input-json file://new-task-def.json \
-          --query "taskDefinition.taskDefinitionArn" \
-          --output text)
-        echo "TASKDEF_ARN=$arn" >> $GITHUB_ENV
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
-    # Ã¢Å“â€¦ UPDATED: Deploy new task definition
-    - name: Update ECS Task Definition
+    - name: Update ECS Service
       run: |
         aws ecs update-service \
           --cluster ${{ secrets.ECS_CLUSTER }} \
           --service ${{ secrets.ECS_SERVICE }} \
-          --task-definition ${{ env.TASKDEF_ARN }} \
           --force-new-deployment
 
     - name: Verify deployment
